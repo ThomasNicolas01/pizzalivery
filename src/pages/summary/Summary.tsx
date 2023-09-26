@@ -10,7 +10,7 @@ import { useState } from "react";
 export default function Summary() {
   const navigate = useNavigate()
 
-  const {pizzaSize, pizzaFlavour} = useContext(OrderContext)
+  const {pizzaSize, pizzaFlavour, setPizzaOrder} = useContext(OrderContext)
   const [summaryData, setSummaryData] = useState({})
   const [summaryAmount, setSummaryAmount] = useState(0)
 
@@ -19,6 +19,18 @@ export default function Summary() {
     navigate(routes.pizzaFlavour)
   }
   const handleNext = ()=>{
+    const payload = { 
+      item:{
+        name: summaryData.name,
+        image: summaryData.image,
+        size: summaryData.text,
+        slices:summaryData.slices,
+        value: summaryData.price,
+      },
+      total: summaryAmount,
+
+    }
+    setPizzaOrder(payload)
     navigate(routes.checkout)
   }
   useEffect(()=>{
